@@ -13,7 +13,7 @@ app.use("/customer", customerRoute);
 app.use("/cloudinary", cloudinaryRoute);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send(/client/pages/home.html);
 });
 
 app.listen(3000, () => {
