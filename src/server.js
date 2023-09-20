@@ -13,7 +13,7 @@ app.use("/customer", customerRoute);
 app.use("/cloudinary", cloudinaryRoute);
 
 app.get("/", (req, res) => {
-  res.send(/client/pages/home.html);
+  res.send("hejsa");
 });
 
 app.listen(3000, () => {
