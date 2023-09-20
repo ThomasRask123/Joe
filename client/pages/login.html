@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../styles/global.css" />
-    <link rel="stylesheet" href="../styles/home.css" />
-    <title>Home</title>
+    <title>Log ind</title>
   </head>
   <body>
     <ul>
       <li><img src="../img/joeLogo.svg" alt="Logo" /></li>
-      <li><a href="home.html" class="active">Home</a></li>
-      <li><a href="login.html">Log ind</a></li>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="login.html" class="active">Log ind</a></li>
       <li style="float: right">
         <a href="https://www.joejuice.com/stores?storeType=true&market=dk"
           >Locations</a
@@ -31,21 +30,27 @@
     <div class="center">
       <div>
         <p>Username</p>
-        <input id="username" type="text" placeholder="Type here" />
-        <p>E-mail</p>
-        <input id="email" type="text" placeholder="Type here" />
+        <input
+          id="username"
+          class="input"
+          type="text"
+          placeholder="Type here"
+        />
         <p>Adgangskode</p>
-        <input id="password" type="password" placeholder="Type here" />
+        <input
+          id="password"
+          class="input"
+          type="password"
+          placeholder="Type here"
+        />
       </div>
     </div>
     <div class="center">
-      <button onclick="getUsers()">Press me</button>
-      <button onclick="saveUser()">Save user</button>
-      <button onclick="saveImage()">Save image</button>
-      <p id="response"></p>
+      <button onclick="login()">Log ind</button>
+      <button onclick="storage()">Log ind (med localStorage)</button>
     </div>
   </body>
 
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="../scripts/home.js"></script>
+  <script src="../scripts/login.js"></script>
 </html>
