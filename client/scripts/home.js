@@ -1,59 +1,70 @@
-let responseDom = document.getElementById("response");
+const socket = io();
 
-function getUsers() {
-  axios
-    .get("http://localhost:3000/customer")
-    .then(function (response) {
-      // handle success
-      console.log(response.data);
-      responseDOM.innerHTML = "All users available in console";
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
+const messages = document.getElementById("messages");
+const input = document.getElementById("input");
+// let username = "Anonymous";
+
+// if (localStorage.getItem("Username") != null) {
+//   username = localStorage.getItem("Username");
+// }
+
+
+// form.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   if (input.value) {
+//     socket.emit('chat message', input.value);
+//     input.value = '';
+//   }
+// });
+
+// function changeUsername() {
+//   username = document.getElementById("username").value;
+//   if (!username == "") {
+//     localStorage.setItem("Username", username);
+//   } else {
+//     localStorage.setItem("Username", "Anonymous");
+//   }
+//   socket.emit("user joined", username);
+//   document.getElementById("username").value = "";
+// }
+
+function sendChat() {
+  if (input.value) {
+    socket.emit("chat message", username + ": " + input.value);
+    input.value = "";
+  }
 }
 
-function saveUser() {
-  const username = document.getElementById("username").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+socket.on("chat message", (msg) => {
+  const item = document.createElement("li");
+  item.textContent = msg;
+  messages.appendChild(item);
+  window.scrollTo(0, document.body.scrollHeight);
+});
 
-  const user = {
-    username,
-    email,
-    password,
-  };
 
-  axios
-    .post("http://localhost:3000/customer", user)
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+// Cookie her:
+
+let username = getCookie("userAuth");
+if (!username) location.href = "/login";
+
+
+socket.emit("user joined", username);
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-function saveImage() {
-  const image = document.getElementById("image").files[0];
+function changeUsername() {
+  username = document.getElementById("username").value;
 
-  const formData = new FormData();
-  formData.append("image", image);
+  if (username == "") {
+    alert("Skriv et nyt brugernavn");
+    return;
+  } else document.cookie = `userAuth=${username}`;
 
-  axios
-    .post("http://localhost:3000/cloudinary/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  socket.emit("user joined", username);
+  document.getElementById("username").value = "";
 }
