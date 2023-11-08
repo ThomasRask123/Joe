@@ -84,3 +84,7 @@ input {
   border: 2px solid #f7c1d9;
   padding: 5px;
 }
+
+body {
+  background-color: rgb(243, 247, 247);
+}
